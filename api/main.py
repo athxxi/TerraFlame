@@ -182,3 +182,84 @@ def anomaly(aoi_id: str, granularity: str = 'month', date: str | None = None):
         'rank': int((base > current).sum()) + 1, 'n_compared': len(base),
         'robust_z': (current - med) / mad if mad else None,
         'same_period_by_year': by_year}
+
+
+@app.get('/live/points')
+def live_points(aoi_id: str, hours: int = 24):
+    if hours not in (24, 48, 72):
+        raise HTTPException(400, 'hours must be 24, 48 or 72')
+    a = get_aoi(aoi_id)
+    with pool.connection() as conn:
+        rows = conn.execute(
+            'SELECT sat, lat, lon, t, frp, conf FROM nrt_points '
+            'WHERE t > now() - make_interval(hours => %s) AND h3 = ANY(%s) LIMIT 20001',
+            (hours, a['cells'])).fetchall()
+    return {'too_many': len(rows) > 20000, 'points': [
+        {'sensor': r[0], 'lat': r[1], 'lon': r[2], 'time': r[3].isoformat(),
+         'frp': r[4], 'conf': r[5]} for r in rows[:20000]]}
+
+@app.get('/live/summary')
+def live_summary(aoi_id: str):
+    a = get_aoi(aoi_id)
+    with pool.connection() as conn:
+        points24 = conn.execute(
+            'SELECT count(*) FROM nrt_points '
+            'WHERE h3 = ANY(%s) AND t > now() - make_interval(hours => 24)',
+            (a['cells'],)).fetchone()[0]
+        last_fetch = conn.execute(
+            'SELECT max(started_at) FROM ingest_log WHERE error IS NULL').fetchone()[0]
+    return {'points_24h': points24, 'last_fetch': last_fetch}
+
+
+import csv, io
+from fastapi.responses import Response, StreamingResponse
+
+@app.get('/export/csv')
+def export_csv(aoi_id: str, granularity: str = 'day', date_from: str = '2000-01-01',
+               date_to: str = '2100-01-01', level: str = 'area'):
+    a = get_aoi(aoi_id)
+    headers = {'Content-Disposition': 'attachment; filename=fire_hotspots_' + level + '.csv'}
+    if level == 'area':
+        df = load_series(aoi_id, granularity, date_from, date_to, limit=False)[0]
+        return Response(df.reset_index().to_csv(index=False, float_format='%.3f'),
+                        media_type='text/csv', headers=headers)
+    if level == 'cell':
+        sql = ('SELECT h3, d, n_h, n_lo, n_hi, frp_h, src FROM daily_h '
+               'WHERE h3 = ANY(%s) AND d BETWEEN %s AND %s ORDER BY d, h3')
+        head = ['h3', 'date', 'n_converted', 'n_low', 'n_high', 'frp_converted', 'source']
+    elif level == 'points':
+        sql = ('SELECT sat, t, lat, lon, frp, conf, daynight, h3, state FROM nrt_points '
+               'WHERE h3 = ANY(%s) AND t >= %s AND t < (%s::date + 1) ORDER BY t')
+        head = ['sensor', 'time_utc', 'latitude', 'longitude', 'frp_mw', 'confidence',
+                'daynight', 'h3', 'state']
+    else:
+        raise HTTPException(400, 'level must be area, cell or points')
+    def rows():
+        buf = io.StringIO()
+        w = csv.writer(buf)
+        w.writerow(head)
+        yield buf.getvalue(); buf.seek(0); buf.truncate()
+        with pool.connection() as conn, conn.cursor(name='export') as cur:
+            cur.execute(sql, (a['cells'], date_from, date_to))
+            for r in cur:
+                w.writerow(r); yield buf.getvalue(); buf.seek(0); buf.truncate()
+    return StreamingResponse(rows(), media_type='text/csv', headers=headers)
+
+
+PROOF = pd.read_csv('handover/proof_series.csv')
+PROOF = PROOF.astype(object).where(PROOF.notna(), None)
+CHECKS = json.load(open('handover/validation.json'))
+
+@app.get('/proof')
+def proof():
+    return {'series': PROOF.to_dict(orient='records'), 'checks': CHECKS}
+
+@app.get('/landcover')
+def landcover(aoi_id: str):
+    a = get_aoi(aoi_id)
+    with pool.connection() as conn:
+        rows = conn.execute(
+            'SELECT ym, sum(agri_h), sum(forest_h), sum(other_h) FROM lc_monthly '
+            'WHERE h3 = ANY(%s) GROUP BY ym ORDER BY ym', (a['cells'],)).fetchall()
+    return {'months': [{'ym': r[0].strftime('%Y-%m'), 'agri': r[1], 'forest': r[2], 'other': r[3]}
+                       for r in rows]}
