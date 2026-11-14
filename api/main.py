@@ -127,3 +127,58 @@ def series(aoi_id: str, granularity: str = 'month',
     return {'points': points, 'meta': {
         'granularity': granularity, 'data_from': data_from.date().isoformat(),
         'data_to': data_to.date().isoformat(), 'partial_last': partial}}
+
+
+def period_start(day, g):
+    if g == 'day':
+        return day
+    if g == 'week':
+        return day - pd.Timedelta(days=day.weekday())
+    if g == 'month':
+        return day.replace(day=1)
+    return day.replace(month=1, day=1)
+
+def years_back(day, k):
+    try:
+        return day.replace(year=day.year - k)
+    except ValueError:                        # 29 February
+        return day.replace(year=day.year - k, day=28)
+
+@app.get('/anomaly')
+def anomaly(aoi_id: str, granularity: str = 'month', date: str | None = None):
+    df, data_from, data_to, _ = load_series(aoi_id, 'day', '2000-01-01', '2100-01-01', limit=False)
+    s = df['n']
+    day = pd.Timestamp(date) if date else data_to - pd.Timedelta(days=1)
+    if granularity not in FREQ or day > data_to or day < data_from:
+        raise HTTPException(400, 'Unknown granularity or a date outside the data')
+    start = period_start(day, granularity)
+    current = float(s[start:day].sum())
+    values, by_year = [], {}
+    for k in range(1, day.year - s.index[0].year + 1):
+        d2, s2 = years_back(day, k), years_back(start, k)
+        if s2 < s.index[0]:
+            break
+        if granularity == 'day':
+            window = s[d2 - pd.Timedelta(days=7): d2 + pd.Timedelta(days=7)]
+            values.extend(window.tolist())
+            by_year[str(d2.year)] = float(s[d2]) if d2 in s.index else 0.0
+        else:
+            total = float(s[s2:d2].sum())
+            values.append(total)
+            by_year[str(d2.year)] = total
+    if len(values) < 3:
+        raise HTTPException(400, 'Not enough history for this area')
+    base = np.array(values)
+    med = float(np.median(base))
+    mad = float(np.median(np.abs(base - med)) * 1.4826)
+    ends = {'day': day, 'week': start + pd.Timedelta(days=6),
+            'month': start + pd.offsets.MonthEnd(0), 'year': start.replace(month=12, day=31)}
+    return {
+        'granularity': granularity, 'period_start': start.date().isoformat(),
+        'day': day.date().isoformat(), 'current': current, 'median': med,
+        'partial': bool(day < ends[granularity]),
+        'ratio_to_median': current / med if med else None,
+        'percentile': float((base < current).mean() * 100),
+        'rank': int((base > current).sum()) + 1, 'n_compared': len(base),
+        'robust_z': (current - med) / mad if mad else None,
+        'same_period_by_year': by_year}
