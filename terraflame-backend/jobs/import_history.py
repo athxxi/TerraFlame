@@ -1,6 +1,13 @@
 import glob, os
+import sys
+from pathlib import Path
+
 import psycopg
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from load_env import load_dotenv
+
+load_dotenv()
 DB = os.environ['DATABASE_URL']
 COPY_CSV = 'WITH (FORMAT csv, HEADER true)'
 
