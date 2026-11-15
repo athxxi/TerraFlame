@@ -1,0 +1,13 @@
+APScheduler==3.11.3
+fastapi==0.163.0
+h3==4.5.0
+httpx==0.28.1
+numpy==2.5.4
+pandas==3.1.1
+psycopg==3.3.9
+psycopg-binary==3.3.9
+psycopg-pool==3.3.3
+pydantic==2.14.3
+pydantic_core==2.50.4
+shapely==2.2.0
+uvicorn==0.54.0
