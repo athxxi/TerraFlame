@@ -12,5 +12,14 @@
 @media (max-width: 1000px) {
   .live-section__grid {
     grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .live-section__grid > .live-map {
+    order: 1;
+  }
+
+  .live-section__grid > .live-panel {
+    order: 2;
   }
 }

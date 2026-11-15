@@ -134,3 +134,27 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 900px) {
+  .explorer-page,
+  .explorer {
+    min-width: 0;
+  }
+
+  .explorer-command {
+    gap: 14px;
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  .explorer-command__stack,
+  .explorer-command__meta,
+  .explorer-workspace,
+  .explorer-workspace__body {
+    min-width: 0;
+  }
+
+  .explorer-command__mode .segmented__btn {
+    padding: 0 8px;
+  }
+}

@@ -66,3 +66,32 @@
 .live-panel__note {
   margin: 0;
 }
+
+@media (max-width: 900px) {
+  .live-panel {
+    padding: 14px 12px;
+    min-width: 0;
+  }
+
+  .live-panel__count-value {
+    font-size: clamp(1.5rem, 8vw, 2.25rem);
+  }
+
+  .live-panel__bars {
+    height: 108px;
+    gap: 4px;
+    padding-top: 6px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .live-panel__bar-col {
+    min-width: 22px;
+    flex: 0 0 auto;
+  }
+
+  .live-panel__bar-label {
+    font-size: 8px;
+    line-height: 1.2;
+  }
+}
