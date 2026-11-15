@@ -1,0 +1,30 @@
+{
+  "pattern_match": {
+    "value": {
+      "day": 0.9172608380225351,
+      "week": 0.973051909037937,
+      "month": 0.9851845071082466
+    },
+    "sentence": "Converted VIIRS follows MODIS closely: correlation 0.99 by month, 0.97 by week and 0.92 by day (daily values are noisier)."
+  },
+  "typical_difference": {
+    "value": 8.149810491872845,
+    "sentence": "In a typical month the converted VIIRS value differs from MODIS by about 8 percent."
+  },
+  "busiest_months": {
+    "value": 5,
+    "sentence": "5 of the 5 busiest months are the same in both sensors."
+  },
+  "gap_closed": {
+    "value": [
+      5.692866082603254,
+      1.025864537669268
+    ],
+    "sentence": "Before conversion VIIRS counts 5.7 times as many as MODIS; after conversion 1.03 times."
+  },
+  "peak_season": {
+    "value": 0.8823529411764706,
+    "sentence": "In 88 percent of states the busiest month of the year is the same in both sensors."
+  },
+  "note": "These checks compare the two sensors in the years both flew, which are also the years used to set the exchange ratios. They show how well the two line up, not a prediction for other years."
+}

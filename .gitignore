@@ -1,6 +1,8 @@
 .env
+terraflame-frontend/.env
 terraflame-backend/.env
-terraflame-backend/handover/
+terraflame-backend/handover/**
+!terraflame-backend/handover/README.md
 .venv/
 node_modules/
 terraflame-frontend/node_modules/

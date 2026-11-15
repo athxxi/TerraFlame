@@ -248,9 +248,9 @@ def export_csv(aoi_id: str, granularity: str = 'day', date_from: str = '2000-01-
     return StreamingResponse(rows(), media_type='text/csv', headers=headers)
 
 
-PROOF = pd.read_csv('handover/proof_series.csv')
+PROOF = pd.read_csv('reference/proof_series.csv')
 PROOF = PROOF.astype(object).where(PROOF.notna(), None)
-CHECKS = json.load(open('handover/validation.json'))
+CHECKS = json.load(open('reference/validation.json'))
 
 @app.get('/proof')
 def proof():

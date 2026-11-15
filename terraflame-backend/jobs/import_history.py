@@ -13,7 +13,7 @@ with psycopg.connect(DB) as conn, conn.cursor() as cur:
     for path in sorted(glob.glob('handover/daily_h_*.csv')):
         copy_file(cur, 'daily_h', 'h3, d, n_h, n_lo, n_hi, frp_h, src', path)
         print('imported', path)
-    copy_file(cur, 'h3_state', 'h3, state', 'handover/h3_state.csv')
+    copy_file(cur, 'h3_state', 'h3, state', 'reference/h3_state.csv')
     if os.path.exists('handover/lc_monthly_h.csv'):
         copy_file(cur, 'lc_monthly', 'h3, ym, agri_h, forest_h, other_h', 'handover/lc_monthly_h.csv')
     cur.execute('INSERT INTO state_daily '

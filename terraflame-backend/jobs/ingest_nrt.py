@@ -2,7 +2,7 @@ import os, io, httpx, psycopg
 import pandas as pd
 from fire_pipeline import clean, add_cells, daily_counts, harmonize, load_reference
 
-REF = load_reference('handover')
+REF = load_reference('reference')
 BASE = 'https://firms.modaps.eosdis.nasa.gov/api/area/csv'
 SOURCES = {'VIIRS_SNPP_NRT': 'VNPP', 'VIIRS_NOAA20_NRT': 'VN20',
            'VIIRS_NOAA21_NRT': 'VN21', 'MODIS_NRT': 'MODIS'}

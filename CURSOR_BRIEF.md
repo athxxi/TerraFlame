@@ -33,7 +33,8 @@ TerraFlameV1/
 │   ├── api/            backend (do not edit)
 │   ├── db/             schema (do not edit)
 │   ├── jobs/           live job (do not edit)
-│   ├── handover/       data files (do not edit, not in git)
+│   ├── reference/      calibration & proof files (in git)
+│   ├── handover/       bulk daily_h CSVs for import (not in git)
 │   └── .env            secrets (never read, print or commit)
 ├── terraflame-frontend/   YOU WORK HERE
 └── CURSOR_BRIEF.md
@@ -154,7 +155,7 @@ Returns a CSV file (not JSON). `level` is `area` (one row per period at the chos
 6. **Every screen needs three states:** loading, empty and error. Show the API's `detail` message in the error state.
 7. **Responsive.** It must work on a phone and at projector size.
 8. **Code quality.** TypeScript with no `any`. One typed function per endpoint in `src/api.ts`. Keep components small, and keep data fetching in hooks, not in the chart components.
-9. **Do not touch secrets.** Never open or print `.env` or the files in `handover/`.
+9. **Do not touch secrets.** Never open or print `.env`. Do not commit large `handover/daily_h_*.csv` files.
 10. **Stay in `terraflame-frontend/`.** If you need a backend change, stop and ask me.
 
 ## 7. Shared state (zustand store)
