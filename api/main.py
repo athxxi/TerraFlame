@@ -263,3 +263,15 @@ def landcover(aoi_id: str):
             'WHERE h3 = ANY(%s) GROUP BY ym ORDER BY ym', (a['cells'],)).fetchall()
     return {'months': [{'ym': r[0].strftime('%Y-%m'), 'agri': r[1], 'forest': r[2], 'other': r[3]}
                        for r in rows]}
+
+
+from datetime import datetime, timezone
+from apscheduler.schedulers.background import BackgroundScheduler
+from jobs.ingest_nrt import run_ingest
+
+if os.environ.get('RUN_SCHEDULER', '1') == '1':
+    scheduler = BackgroundScheduler(timezone='UTC')
+    scheduler.add_job(run_ingest, 'interval',
+                      hours=int(os.environ.get('NRT_INTERVAL_HOURS', '3')),
+                      next_run_time=datetime.now(timezone.utc), max_instances=1, coalesce=True)
+    scheduler.start()
