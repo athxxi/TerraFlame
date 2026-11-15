@@ -1,7 +1,9 @@
 .env
-handover/
+terraflame-backend/.env
+terraflame-backend/handover/
 .venv/
 node_modules/
+terraflame-frontend/node_modules/
 __pycache__/
 *.pyc
 .DS_Store

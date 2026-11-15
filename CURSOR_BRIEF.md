@@ -19,32 +19,33 @@ The data is NASA FIRMS (MODIS and VIIRS). VIIRS counts are converted to MODIS-eq
 | Part | State |
 | --- | --- |
 | PostgreSQL in Docker | Running. History 2000-11-01 to 2026-11-14 imported |
-| FastAPI backend (`api/main.py`) | All endpoints below work. Runs at `http://localhost:8000` |
-| Live data job (`jobs/ingest_nrt.py`) | Fetches from FIRMS every 3 hours into the same database |
-| Frontend (`frontend/`) | Vite + React + TypeScript scaffold only. Packages installed. Nothing built yet |
+| FastAPI backend (`terraflame-backend/api/main.py`) | All endpoints below work. Runs at `http://localhost:8000` |
+| Live data job (`terraflame-backend/jobs/ingest_nrt.py`) | Fetches from FIRMS every 3 hours into the same database |
+| Frontend (`terraflame-frontend/`) | Vite + React + TypeScript scaffold only. Packages installed. Nothing built yet |
 
-Your job is **only the frontend** in `frontend/`. Do not change `api/`, `jobs/`, `db/` or `handover/`. If you think the API needs a change, tell me instead of editing it.
+Your job is **only the frontend** in `terraflame-frontend/`. Do not change `terraflame-backend/`. If you think the API needs a change, tell me instead of editing it.
 
 ## 3. Project layout
 
 ```
 TerraFlameV1/
-├── api/            backend (do not edit)
-├── db/             schema (do not edit)
-├── frontend/       YOU WORK HERE
-├── handover/       data files (do not edit, not in git)
-├── jobs/           live job (do not edit)
-├── .env            secrets (never read, print or commit)
-└── CURSOR_BRIEF.md this file
+├── terraflame-backend/
+│   ├── api/            backend (do not edit)
+│   ├── db/             schema (do not edit)
+│   ├── jobs/           live job (do not edit)
+│   ├── handover/       data files (do not edit, not in git)
+│   └── .env            secrets (never read, print or commit)
+├── terraflame-frontend/   YOU WORK HERE
+└── CURSOR_BRIEF.md
 ```
 
 Run the app with two terminals:
-- Terminal 1, project root: `source .venv/bin/activate && set -a; source .env; set +a && uvicorn api.main:app --reload`
-- Terminal 2, in `frontend/`: `npm run dev` (opens at `http://localhost:5173`)
+- Terminal 1, in `terraflame-backend/`: `source ../.venv/bin/activate && set -a; source .env; set +a && uvicorn api.main:app --reload`
+- Terminal 2, in `terraflame-frontend/`: `npm run dev` (opens at `http://localhost:5173`)
 
-`frontend/.env` already holds `VITE_API_URL=http://localhost:8000`. Read the API address only from `import.meta.env.VITE_API_URL`. Never hard-code it.
+`terraflame-frontend/.env` already holds `VITE_API_URL=http://localhost:8000`. Read the API address only from `import.meta.env.VITE_API_URL`. Never hard-code it.
 
-## 4. Tech stack (already installed in `frontend/`)
+## 4. Tech stack (already installed in `terraflame-frontend/`)
 
 `react`, `typescript`, `vite`, `maplibre-gl`, `@mapbox/mapbox-gl-draw`, `deck.gl`, `echarts`, `@tanstack/react-query`, `zustand`, `dayjs`.
 
@@ -154,7 +155,7 @@ Returns a CSV file (not JSON). `level` is `area` (one row per period at the chos
 7. **Responsive.** It must work on a phone and at projector size.
 8. **Code quality.** TypeScript with no `any`. One typed function per endpoint in `src/api.ts`. Keep components small, and keep data fetching in hooks, not in the chart components.
 9. **Do not touch secrets.** Never open or print `.env` or the files in `handover/`.
-10. **Stay in `frontend/`.** If you need a backend change, stop and ask me.
+10. **Stay in `terraflame-frontend/`.** If you need a backend change, stop and ask me.
 
 ## 7. Shared state (zustand store)
 
