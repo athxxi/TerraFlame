@@ -1,0 +1,16 @@
+.live-section__grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 360px);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.live-section__grid--map-only {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1000px) {
+  .live-section__grid {
+    grid-template-columns: 1fr;
+  }
+}

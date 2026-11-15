@@ -199,16 +199,18 @@ def live_points(aoi_id: str, hours: int = 24):
          'frp': r[4], 'conf': r[5]} for r in rows[:20000]]}
 
 @app.get('/live/summary')
-def live_summary(aoi_id: str):
+def live_summary(aoi_id: str, hours: int = 24):
+    if hours not in (24, 48, 72):
+        raise HTTPException(400, 'hours must be 24, 48 or 72')
     a = get_aoi(aoi_id)
     with pool.connection() as conn:
-        points24 = conn.execute(
+        point_count = conn.execute(
             'SELECT count(*) FROM nrt_points '
-            'WHERE h3 = ANY(%s) AND t > now() - make_interval(hours => 24)',
-            (a['cells'],)).fetchone()[0]
+            'WHERE h3 = ANY(%s) AND t > now() - make_interval(hours => %s)',
+            (a['cells'], hours)).fetchone()[0]
         last_fetch = conn.execute(
             'SELECT max(started_at) FROM ingest_log WHERE error IS NULL').fetchone()[0]
-    return {'points_24h': points24, 'last_fetch': last_fetch}
+    return {'point_count': point_count, 'hours': hours, 'last_fetch': last_fetch}
 
 
 import csv, io

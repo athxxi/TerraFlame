@@ -1,0 +1,43 @@
+.day-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-view__calendar-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-view__year-select {
+  height: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-field);
+  font: inherit;
+  font-size: 14px;
+}
+
+.day-calendar {
+  max-height: 280px;
+  overflow: auto;
+}
+
+.day-calendar .month-heatmap__cell {
+  max-width: var(--heatmap-cell-max, 20px);
+}
+
+.day-view__brush-hint {
+  margin: 0;
+}
+
+.day-view__line {
+  width: 100%;
+}
+
+.week-heatmap__grid {
+  max-height: 420px;
+  overflow-y: auto;
+}

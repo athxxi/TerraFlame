@@ -1,0 +1,84 @@
+:root {
+  --text-on-accent: #161921;
+  --accent: #ff5a00;
+  --accent-a25: rgba(255, 90, 0, 0.25);
+  --shell-text: #f0f0f0;
+  --shell-text-muted: rgba(240, 240, 240, 0.7);
+  --shell-text-muted-50: rgba(240, 240, 240, 0.35);
+  --shell-hover: rgba(240, 240, 240, 0.1);
+  --ink: #161921;
+  --text: #161921;
+  --text-muted: rgba(22, 25, 33, 0.6);
+  --text-label: rgba(22, 25, 33, 0.7);
+  --text-faint: rgba(22, 25, 33, 0.4);
+  --surface: #f0f0f0;
+  --surface-card: #ffffff;
+  --surface-recessed: #fafafa;
+  --surface-field: rgba(240, 240, 240, 0.3);
+  --border: rgba(22, 25, 33, 0.1);
+  --border-strong: rgba(22, 25, 33, 0.3);
+  --status-success: #22c55e;
+  --status-success-a10: rgba(34, 197, 94, 0.1);
+  --status-success-a30: rgba(34, 197, 94, 0.3);
+  --status-warning: #f59e0b;
+  --status-warning-a10: rgba(245, 158, 11, 0.1);
+  --status-warning-a30: rgba(245, 158, 11, 0.3);
+  --status-danger: #ef4444;
+  --status-danger-a10: rgba(239, 68, 68, 0.1);
+  --status-danger-a30: rgba(239, 68, 68, 0.3);
+  --status-info: #3b82f6;
+  --status-info-a10: rgba(59, 130, 246, 0.1);
+  --status-info-a30: rgba(59, 130, 246, 0.3);
+  --fill-active: rgba(22, 25, 33, 0.1);
+  --chart-axis-line: rgba(22, 25, 33, 0.15);
+  --chart-grid-line: rgba(22, 25, 33, 0.08);
+  --chart-bar-dim: rgba(22, 25, 33, 0.25);
+  --chart-median-line: rgba(22, 25, 33, 0.45);
+  --chart-bar-partial: #fafafa;
+  --heatmap-zero: #e8e8ec;
+  --overlay-scrim: color-mix(in srgb, var(--surface-card) 92%, transparent);
+  --font-sans:
+    'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --topbar-height: 56px;
+  --content-max: 1440px;
+  --page-pad: 16px;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --page-pad: 12px;
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --page-pad: 24px;
+  }
+}
+
+[data-theme='dark'] {
+  --text: #f0f0f0;
+  --text-muted: rgba(240, 240, 240, 0.65);
+  --text-label: rgba(240, 240, 240, 0.75);
+  --text-faint: rgba(240, 240, 240, 0.4);
+  --surface: #1a1d24;
+  --surface-card: #23272f;
+  --surface-recessed: #12151a;
+  --surface-field: rgba(240, 240, 240, 0.06);
+  --border: rgba(240, 240, 240, 0.1);
+  --border-strong: rgba(240, 240, 240, 0.28);
+  --fill-active: rgba(240, 240, 240, 0.1);
+  --chart-axis-line: rgba(240, 240, 240, 0.15);
+  --chart-grid-line: rgba(240, 240, 240, 0.08);
+  --chart-bar-dim: rgba(240, 240, 240, 0.22);
+  --chart-median-line: rgba(240, 240, 240, 0.4);
+  --chart-bar-partial: #2a2e38;
+  --heatmap-zero: rgba(240, 240, 240, 0.08);
+  --status-success-a10: rgba(34, 197, 94, 0.15);
+  --status-warning-a10: rgba(245, 158, 11, 0.15);
+  --status-danger-a10: rgba(239, 68, 68, 0.15);
+  --status-info-a10: rgba(59, 130, 246, 0.15);
+}

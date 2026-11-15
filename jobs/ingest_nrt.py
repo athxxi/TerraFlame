@@ -63,8 +63,15 @@ def run_ingest():
                 with conn.cursor() as cur:
                     cur.executemany(INSERT_POINT, params)
                     inserted += max(cur.rowcount, 0)
-            if dates:
-                rebuild_days(conn, sorted(dates))
+            day_set = set(dates)
+            recent = conn.execute(
+                'SELECT DISTINCT (t AT TIME ZONE %s)::date FROM nrt_points '
+                'WHERE t > now() - make_interval(days => %s)',
+                ('UTC', days),
+            ).fetchall()
+            day_set.update(r[0] for r in recent)
+            if day_set:
+                rebuild_days(conn, sorted(day_set))
             conn.execute('DELETE FROM nrt_points WHERE t < now() - make_interval(days => 30)')
             conn.commit()
         except Exception as e:
@@ -74,9 +81,3 @@ def run_ingest():
         conn.execute('INSERT INTO ingest_log (source, fetched, inserted, error) '
                      'VALUES (%s, %s, %s, %s)', ('nrt', fetched, inserted, error))
         conn.execute('SELECT pg_advisory_unlock(42)')
-    if error is None:
-        try:
-            from jobs.check_alerts import check_alerts      # added in Step 14
-        except ImportError:
-            return
-        check_alerts()

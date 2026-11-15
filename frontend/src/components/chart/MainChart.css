@@ -1,0 +1,72 @@
+.main-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.main-chart__card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main-chart__header--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.main-chart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-chart__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: center;
+}
+
+.main-chart__toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.main-chart__day-note {
+  margin: 0;
+  padding: 8px 12px;
+  background: var(--surface-recessed);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.main-chart__status {
+  margin: 0;
+  padding: 24px 0;
+  color: var(--text-muted);
+}
+
+.main-chart__error {
+  margin: 0;
+  color: var(--status-danger);
+}
+
+.main-chart__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.chart-canvas {
+  width: 100%;
+}

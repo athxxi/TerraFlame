@@ -1,0 +1,116 @@
+.csv-export-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 18, 24, 0.45);
+}
+
+.csv-export-dialog {
+  width: min(100%, 440px);
+  margin: 0;
+  border: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.csv-export-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.csv-export-dialog__header h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.csv-export-dialog__close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.csv-export-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.csv-export-field select,
+.csv-export-field input[type='date'] {
+  height: 38px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-field);
+  font: inherit;
+}
+
+.csv-export-levels {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.csv-export-level {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.csv-export-level strong {
+  display: block;
+  font-size: 14px;
+}
+
+.csv-export-level__help {
+  display: block;
+  margin-top: 2px;
+}
+
+.csv-export-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.csv-export-warn {
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent);
+  background: rgba(255, 90, 0, 0.08);
+  font-size: 14px;
+}
+
+.csv-export-warn p {
+  margin: 0 0 10px;
+}
+
+.csv-export-confirm {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.csv-export-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}

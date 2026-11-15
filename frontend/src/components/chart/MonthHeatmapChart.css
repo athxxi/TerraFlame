@@ -1,0 +1,95 @@
+.month-heatmap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.month-heatmap__grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  grid-template-columns: 48px repeat(var(--heatmap-cols, 1), minmax(12px, 1fr));
+}
+
+.day-calendar__grid {
+  grid-template-columns: 40px repeat(var(--heatmap-cols, 1), minmax(10px, 1fr));
+}
+
+.month-heatmap__row {
+  display: contents;
+}
+
+.month-heatmap__corner {
+  min-height: 1px;
+}
+
+.month-heatmap__year,
+.month-heatmap__month {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-faint);
+  align-self: center;
+}
+
+.month-heatmap__cell {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--heatmap-cell-max, 24px);
+  aspect-ratio: 14 / 12;
+  min-width: 0;
+  min-height: 10px;
+  justify-self: center;
+  align-self: center;
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.month-heatmap__cell--empty {
+  background: transparent;
+  cursor: default;
+}
+
+.month-heatmap__cell--partial {
+  outline: 1.5px dashed var(--ink);
+  outline-offset: -1.5px;
+}
+
+.month-heatmap__cell--selected {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.month-heatmap__legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+
+.month-heatmap__swatch {
+  display: inline-block;
+  width: 14px;
+  height: 12px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.month-heatmap__swatch--zero {
+  background: var(--surface-field);
+  border: 1px solid var(--border);
+}
+
+.month-heatmap__swatch--partial {
+  background: var(--surface-recessed);
+  border: 1.5px dashed var(--ink);
+}
+
+.month-heatmap__scale {
+  width: 80px;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #440154, #21908d, #fde725);
+}

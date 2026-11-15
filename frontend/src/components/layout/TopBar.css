@@ -1,0 +1,120 @@
+.topbar {
+  background: var(--ink);
+  color: var(--shell-text);
+  height: var(--topbar-height);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.topbar__inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 var(--page-pad);
+}
+
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.topbar__logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar__title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topbar__nav-link {
+  color: var(--shell-text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.topbar__nav-link:hover {
+  background: var(--shell-hover);
+  color: var(--shell-text);
+}
+
+.topbar__nav-link--active {
+  color: var(--shell-text);
+  background: var(--shell-hover);
+}
+
+.topbar__theme {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--shell-text-muted-50);
+  background: transparent;
+  color: var(--shell-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.topbar__theme:hover {
+  background: var(--shell-hover);
+}
+
+.topbar__nav-mobile {
+  display: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--shell-text);
+  background: var(--shell-hover);
+  border: 1px solid var(--shell-text-muted-50);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  max-width: 9.5rem;
+}
+
+@media (max-width: 900px) {
+  .topbar__nav {
+    display: none;
+  }
+
+  .topbar__nav-mobile {
+    display: block;
+  }
+
+  .topbar__title {
+    font-size: 15px;
+  }
+}

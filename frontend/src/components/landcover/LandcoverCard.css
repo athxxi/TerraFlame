@@ -1,0 +1,21 @@
+.landcover-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.landcover-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.landcover-card__error {
+  margin: 0;
+  color: var(--accent-strong);
+}
+
+.landcover-card__chart {
+  width: 100%;
+}

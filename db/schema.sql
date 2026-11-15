@@ -27,11 +27,6 @@ CREATE TABLE aoi (
   id text PRIMARY KEY, geojson jsonb NOT NULL, cells text[] NOT NULL,
   state text, area_km2 real, created_at timestamptz DEFAULT now());
 
-CREATE TABLE alert_subscriptions (
-  id serial PRIMARY KEY, chat_id bigint NOT NULL, aoi_id text REFERENCES aoi(id),
-  min_hotspots int NOT NULL DEFAULT 20, last_alert_at timestamptz,
-  created_at timestamptz DEFAULT now());
-
 CREATE TABLE ingest_log (
   id serial PRIMARY KEY, started_at timestamptz DEFAULT now(),
   source text, fetched int, inserted int, error text);

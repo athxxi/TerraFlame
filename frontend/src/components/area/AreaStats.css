@@ -1,0 +1,37 @@
+.area-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.area-stats__primary {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.area-stats__primary strong {
+  font-weight: 500;
+}
+
+.area-stats__sep {
+  margin: 0 6px;
+  color: var(--text-faint);
+}
+
+.area-stats__meta {
+  margin: 0;
+}
+
+.area-stats__code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--surface-field);
+}
+
+.area-stats__note {
+  margin: 4px 0 0;
+  color: var(--status-warning);
+}

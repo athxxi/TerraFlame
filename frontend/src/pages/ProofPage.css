@@ -1,0 +1,123 @@
+.proof-page__shell {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.proof-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 320px);
+  gap: 24px;
+  align-items: start;
+  padding: 28px 24px;
+  border: none;
+  border-top: 3px solid var(--accent);
+}
+
+@media (max-width: 860px) {
+  .proof-page__hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.proof-page__lede {
+  max-width: 58ch;
+  margin-top: 10px;
+}
+
+.proof-page__lede strong {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.proof-page__hero-link {
+  margin: 18px 0 0;
+}
+
+.proof-page__spotlight {
+  padding: 16px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--shell-text);
+}
+
+.proof-page__spotlight-stat {
+  margin: 8px 0 0;
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.proof-page__spotlight-sentence {
+  margin: 10px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.proof-page__spotlight .caption {
+  margin: 10px 0 0;
+  color: var(--shell-text-muted);
+}
+
+.proof-page__status {
+  padding: 16px 20px;
+  border: none;
+}
+
+.proof-page__error {
+  margin: 0;
+  padding: 16px 20px;
+  color: var(--status-danger);
+  border: 1px solid var(--status-danger-a30);
+  background: var(--status-danger-a10);
+}
+
+.proof-page__chart {
+  padding: 20px 16px 12px;
+  border: none;
+}
+
+.proof-page__chart-head {
+  padding: 0 8px 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.proof-chart {
+  width: 100%;
+}
+
+.proof-page__checks-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proof-page__checks-head {
+  padding: 0 4px;
+}
+
+.proof-page__checks-lede {
+  margin: 6px 0 0;
+  max-width: 52ch;
+}
+
+.proof-page__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: none;
+  background: var(--surface-recessed);
+}
+
+.proof-page__footer-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}

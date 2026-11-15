@@ -1,0 +1,136 @@
+.explorer-page__shell {
+  gap: 20px;
+}
+
+.explorer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 16px;
+}
+
+.explorer-command {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px;
+  border: none;
+  border-left: 4px solid var(--accent);
+  background: var(--surface-card);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.explorer-command__head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.explorer-command__lede {
+  margin: 0;
+  max-width: 48ch;
+}
+
+.explorer-command__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.explorer-command__block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.explorer-command__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 280px);
+  gap: 16px 24px;
+  align-items: start;
+}
+
+.explorer-command__status,
+.explorer-command__view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.explorer-command__view {
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-recessed);
+  border: 1px solid var(--border);
+}
+
+.explorer-command__mode {
+  width: 100%;
+}
+
+.explorer-command__mode .segmented {
+  width: 100%;
+}
+
+.explorer-command__mode .segmented__btn {
+  flex: 1;
+}
+
+.explorer-command__view-note {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.explorer-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.explorer-workspace__head h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.explorer-workspace__head .caption {
+  margin-top: 4px;
+}
+
+.explorer-workspace__empty {
+  padding: 20px;
+  text-align: center;
+  border-style: dashed;
+}
+
+.explorer-workspace__empty-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.explorer-workspace__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.explorer-workspace__body--dimmed {
+  opacity: 0.55;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .explorer-command {
+    padding: 18px 16px;
+  }
+
+  .explorer-command__meta {
+    grid-template-columns: 1fr;
+  }
+}

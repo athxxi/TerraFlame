@@ -57,8 +57,14 @@ def harmonize(counts, calibration, satellites):
     cols = ['n_h', 'n_lo', 'n_hi', 'frp_h']
     first = satellites.set_index('sat')['first_date']
     viirs_first = first[VIIRS].min()
-    m = c[(c['sat'] == 'MODIS') & (c['d'] < viirs_first)]          # before VIIRS: MODIS as measured
-    v = c[(c['sat'] != 'MODIS') & (c['d'] >= viirs_first)].copy()  # after: converted VIIRS
+    viirs_days = set(c.loc[(c['sat'] != 'MODIS') & (c['d'] >= viirs_first), 'd'])
+    # After VIIRS launch: prefer converted VIIRS when it has detections that day.
+    # Use MODIS on days with no VIIRS (for example when only MODIS NRT still returns rows).
+    m = c[
+        (c['sat'] == 'MODIS')
+        & ((c['d'] < viirs_first) | ((c['d'] >= viirs_first) & (~c['d'].isin(viirs_days))))
+    ]
+    v = c[(c['sat'] != 'MODIS') & (c['d'] >= viirs_first)].copy()
     present = v.groupby('d')['sat'].nunique()         # VIIRS satellites that have data that day
     k = v['d'].map(present)                            # VIIRS satellites flying that day
     for col in cols:
